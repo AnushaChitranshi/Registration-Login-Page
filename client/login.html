@@ -1,0 +1,51 @@
+    <h1>Login</h1>
+    <p>Please login here to fetch details.</p>
+    <hr>
+    <div class="container">
+    <br>
+      <label for="uname"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="uname" id="uname" required>
+  
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+
+      <br><br>
+  
+      <button id="button" type="submit">Login</button>
+
+      <br><br>
+    </div>
+  
+    <div class="container" style="background-color:hwb(0 100% 0%)">
+      
+    </div>
+
+    <script>
+
+      document.getElementById('button').onclick = async function()
+      {
+        
+        let user_name = document.getElementById('uname').value;
+        let pass = document.getElementById('psw').value;
+  
+        let data = {
+          username: user_name,
+          password: pass
+        };
+        
+        let response = await fetch('http://localhost:3000/login/find', {
+          method: 'POST',
+          headers: {
+            'Content-Type':'application/json',
+          },
+          body: JSON.stringify(data),
+        }).then(response => response.json())
+        .then(data => {
+          console.log('Success', data)
+          window.location.href = window.location.origin + `/find?user=${user_name}`;
+        }
+        ).catch(err => alert("Incorrect Password"));
+
+        
+      }
+  </script>
